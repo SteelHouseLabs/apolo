@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+require 'apolo'
+require 'optparse'
+
+options = { critical: 120, warning: 120 }
+
+begin
+  OptionParser.new do |opts|
+    opts.on('-c', '--critical MAX', 'Max numbers of minutes on queue for critical') { |v| options[:critical] = v }
+    opts.on('-w', '--warning MAX', 'Max numbers of minutes on queue for warning') { |v| options[:warning] = v }
+    opts.on('-p' '--printer name', 'Printer name to check for jobs') { |v| options[:printer] = v }
+  end.parse!
+rescue Exception => msg
+  puts msg
+  exit
+end
+
+# Supress warning messages.
+original_verbose, $VERBOSE = $VERBOSE, nil
+@@options = options
+# Activate warning messages again.
+$VERBOSE = original_verbose
+
+
+class CheckCups < Apolo::Monitor
+  name 'CUPS'
+
+  # Notifiers
+  notify Apolo::Notifiers::Nagios, file: 'nagios.cmd',\
+                                   host: 'localhost',\
+                                   service: 'CUPS',\
+                                   warning: @@options[:warning].to_i,\
+                                   critical: @@options[:critical].to_i
+
+  run do
+    # create new Cups instance
+    cups = Apolo::Domains::Cups.new(@@options[:printer_name])
+
+    # send notify to nagios
+    if cups.jobs_count > 0
+      notify message: "Last job #{cups.minutes} minutes ago: #{cups.job[:id]} - #{cups.job[:dest]} - #{cups.job[:user]} - #{Time.at(cups.job[:creation_time])}", value: cups.minutes
+    else
+      notify message: 'Not jobs found', value: cups.minutes
+    end
+
+  end
+end
+
+# create monitor and run it
+monitor = CheckCups.new
+monitor.run

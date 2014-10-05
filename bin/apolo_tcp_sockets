@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+require 'apolo'
+require 'optparse'
+
+options = { critical: 120, warning: 120, ipv6: false }
+
+begin
+  OptionParser.new do |opts|
+    opts.on('-c', '--critical MAX', 'Max numbers of open sockets for critical') { |v| options[:critical] = v }
+    opts.on('-w', '--warning MAX', 'Max numbers of open sockets for warning') { |v| options[:warning] = v }
+    opts.on('-6' '--ipv6 (true|false)', 'Use IP6 or not') { options[:ipv6] = true }
+  end.parse!
+rescue Exception => msg
+  puts msg
+  exit
+end
+
+# Supress warning messages.
+original_verbose, $VERBOSE = $VERBOSE, nil
+@@options = options
+# Activate warning messages again.
+$VERBOSE = original_verbose
+
+
+class CheckTCPSockets < Apolo::Monitor
+  name 'TCP_Sockets'
+
+  # Notifiers
+  notify Apolo::Notifiers::Nagios, file: 'nagios.cmd',\
+                                   host: 'localhost',\
+                                   service: 'TCP_Sockets',\
+                                   warning: @@options[:warning].to_i,\
+                                   critical: @@options[:critical].to_i
+
+  run do
+    # get family options
+    family = @@options[:ipv6] ? :INET6 : :INET
+
+    sockets = Apolo::Domains::TCPSockets.connections(family)
+
+    # send notify to nagios
+    notify message: "#{sockets.count} connections #{family}", value: sockets.count
+
+  end
+end
+
+# create monitor and run it
+monitor = CheckTCPSockets.new
+monitor.run

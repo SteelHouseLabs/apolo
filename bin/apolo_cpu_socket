@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+require 'apolo'
+require 'optparse'
+
+options = { critical: 101, warning: 101 }
+
+begin
+  OptionParser.new do |opts|
+    opts.on('-c', '--critical MAX', 'Max cpu usage percentage for critical') { |v| options[:critical] = v }
+    opts.on('-w', '--warning MAX', 'Max cpu usage percentage for warning') { |v| options[:warning] = v }
+  end.parse!
+rescue Exception => msg
+  puts msg
+  exit
+end
+
+# Supress warning messages.
+original_verbose, $VERBOSE = $VERBOSE, nil
+@@options = options
+# Activate warning messages again.
+$VERBOSE = original_verbose
+
+class CheckCpuSocket < Apolo::Monitor
+  name 'CPU_Socket'
+
+  # Nagios notifier
+  notify Apolo::Notifiers::Nagios, file: 'nagios.cmd',\
+                                   host: 'localhost',\
+                                   service: 'CPU_Socket',\
+                                   warning: @@options[:warning].to_i,\
+                                   critical: @@options[:critical].to_i
+
+  run do
+    # create new CpuSocket for calculations
+    cpu_socket = Apolo::Domains::CpuSocket.new
+
+    # get percentage of usage for each socket
+    cpu_usage = cpu_socket.cpu_usage
+
+    # send notify to nagios
+    (0..cpu_socket.sockets).each do |socket|
+      notify message: "Socket #{socket} usage #{cpu_usage[socket]}", value: cpu_usage[socket]
+    end
+
+  end
+end
+
+# create monitor and run it
+monitor = CheckCpuSocket.new
+monitor.run
