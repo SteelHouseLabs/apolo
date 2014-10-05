@@ -12,7 +12,7 @@ I want a structure that communicates what each part of the system is doing.
 [![Gem Version](http://img.shields.io/gem/v/apolo.svg)][gem]
 [![Build Status](https://travis-ci.org/SteelHouseLabs/apolo/apolo.svg)][travis]
 [![Dependency Status](http://img.shields.io/gemnasium/SteelHouseLabs/apolo.svg)][gemnasium]
-[![Code Climate](http://img.shields.io/codeclimate/github/SteelHouseLabs/apolo.svg)][codeclimate]
+[[![Code Climate](https://codeclimate.com/github/SteelHouseLabs/apolo/badges/gpa.svg)](https://codeclimate.com/github/SteelHouseLabs/apolo)
 [![Coverage Status](http://img.shields.io/coveralls/SteelHouseLabs/apolo.svg)][coveralls]
 
 [gem]: https://rubygems.org/gems/apolo
