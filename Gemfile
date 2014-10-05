@@ -16,6 +16,11 @@ group :test do
   gem 'childlabor'
   gem 'coveralls', '>= 0.5.7'
   gem 'fakeweb', '>= 1.3'
+  gem 'sequel', '~> 4.14'
+  gem 'sqlite3', '~> 1.3'
+  gem 'cupsffi', '~> 0.1'
+  gem 'logger-better'
+  gem 'tnt'
   gem 'mime-types', '~> 1.25', :platforms => [:jruby, :ruby_18]
   gem 'rspec', '>= 3'
   gem 'rspec-mocks', '>= 3'
