@@ -8,12 +8,10 @@ The goals of the framework:
 I want a structure that communicates what each part of the system is doing.
 3. DRY - The focus is on the domain classes so I can re-use them for Chef, Nagios, collectd, and what ever else I come across. 
 
-
 [![Gem Version](http://img.shields.io/gem/v/apolo.svg)][gem]
-[![Build Status](https://travis-ci.org/SteelHouseLabs/apolo.svg?branch=master)]
-[![Dependency Status](http://img.shields.io/gemnasium/SteelHouseLabs/apolo.svg)]
-[[![Code Climate](https://codeclimate.com/github/SteelHouseLabs/apolo/badges/gpa.svg)](https://codeclimate.com/github/SteelHouseLabs/apolo)]
-[![Test Coverage](https://codeclimate.com/github/SteelHouseLabs/apolo/badges/coverage.svg)](https://codeclimate.com/github/SteelHouseLabs/apolo)]
+[![Build Status](http://img.shields.io/SteelHouseLabs/apolo/apolo.svg)][travis]
+[![Dependency Status](http://img.shields.io/gemnasium/SteelHouseLabs/apolo.svg)][gemnasium]
+[![Code Climate](http://img.shields.io/codeclimate/github/SteelHouseLabs/apolo.svg)][codeclimate]
 
 [gem]: https://rubygems.org/gems/apolo
 [travis]: http://travis-ci.org/SteelHouseLabs/apolo
