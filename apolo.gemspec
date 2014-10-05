@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Apolo::VERSION
   spec.authors       = ['Efrén Fuentes & Thomas Vincent']
   spec.email         = ['thomasvincent@steelhouselabs.com']
-  spec.summary       = %q{Metric & Monitoring services framework.}
-  spec.description   = %q{Metric & Monitoring services framework.}
+  spec.summary       = %q{Metric, Monitoring & automation services framework.}
+  spec.description   = %q{Metric, Monitoring & automation services framework.}
   spec.homepage      = ''
   spec.license       = 'Apache 2.0'
 
@@ -23,4 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'sequel', '~> 4.14'
   spec.add_dependency 'sqlite3', '~> 1.3'
   spec.add_dependency 'cupsffi', '~> 0.1'
+  spec.add_dependency "logger-better"
+  spec.add_dependency "tnt"
 end
