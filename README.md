@@ -10,10 +10,10 @@ I want a structure that communicates what each part of the system is doing.
 
 
 [![Gem Version](http://img.shields.io/gem/v/thor.svg)][gem]
-[![Build Status](http://img.shields.io/travis/steelhouselabs/apolo.svg)][travis]
-[![Dependency Status](http://img.shields.io/gemnasium/steelhouselabs/apolo.svg)][gemnasium]
-[![Code Climate](http://img.shields.io/codeclimate/github/steelhouselabs/apolo.svg)][codeclimate]
-[![Coverage Status](http://img.shields.io/coveralls/steelhouselabs/apolo.svg)][coveralls]
+[![Build Status](https://travis-ci.org/SteelHouseLabs/apolo/apolo.svg)][travis]
+[![Dependency Status](http://img.shields.io/gemnasium/SteelHouseLabs/apolo.svg)][gemnasium]
+[![Code Climate](http://img.shields.io/codeclimate/github/SteelHouseLabs/apolo.svg)][codeclimate]
+[![Coverage Status](http://img.shields.io/coveralls/SteelHouseLabs/apolo.svg)][coveralls]
 
 [gem]: https://rubygems.org/gems/apolo
 [travis]: http://travis-ci.org/steelhouselabs/apolo
