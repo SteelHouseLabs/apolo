@@ -1,6 +1,12 @@
 # Apolo
 
-TODO: Write a gem description
+A lightweight framework based on a hexagonal architecture for building automation, monitoring, and metrics plugins in ruby. 
+
+The goals of the framework:
+1. Ruby is an object-oriented language with great support for functional programming, and I want to make the most of that to keep apolo's code easy to change.
+2. Clean and well-organised
+I want a structure that communicates what each part of the system is doing.
+3. DRY - The focus is on the domain classes so I can re-use them for Chef, Nagios, collectd, and what ever else I come across. 
 
 ## Installation
 
