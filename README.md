@@ -7,10 +7,12 @@ The goals of the framework:
 2. Clean and well-organised
 I want a structure that communicates what each part of the system is doing.
 3. DRY - The focus is on the domain classes so I can re-use them for Chef, Nagios, collectd, and what ever else I come across. 
+4. 
+
 [![Gem Version](https://badge.fury.io/rb/apolo.svg)](http://badge.fury.io/rb/apolo)
-[![Build Status](http://img.shields.io/SteelHouseLabs/apolo/apolo.svg)][travis]
-[![Dependency Status](http://img.shields.io/gemnasium/SteelHouseLabs/apolo.svg)][gemnasium]
-[![Code Climate](http://img.shields.io/codeclimate/github/SteelHouseLabs/apolo.svg)][codeclimate]
+[![Build Status](http://img.shields.io/SteelHouseLabs/apolo/apolo.svg)]
+[![Dependency Status](http://img.shields.io/gemnasium/SteelHouseLabs/apolo.svg)]
+[![Code Climate](http://img.shields.io/codeclimate/github/SteelHouseLabs/apolo.svg)]
 
 [gem]: https://rubygems.org/gems/apolo
 [travis]: http://travis-ci.org/SteelHouseLabs/apolo
