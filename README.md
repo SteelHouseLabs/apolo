@@ -9,17 +9,17 @@ I want a structure that communicates what each part of the system is doing.
 3. DRY - The focus is on the domain classes so I can re-use them for Chef, Nagios, collectd, and what ever else I come across. 
 
 
-[![Gem Version](http://img.shields.io/gem/v/thor.svg)][gem]
+[![Gem Version](http://img.shields.io/gem/v/apolo.svg)][gem]
 [![Build Status](https://travis-ci.org/SteelHouseLabs/apolo/apolo.svg)][travis]
 [![Dependency Status](http://img.shields.io/gemnasium/SteelHouseLabs/apolo.svg)][gemnasium]
 [![Code Climate](http://img.shields.io/codeclimate/github/SteelHouseLabs/apolo.svg)][codeclimate]
 [![Coverage Status](http://img.shields.io/coveralls/SteelHouseLabs/apolo.svg)][coveralls]
 
 [gem]: https://rubygems.org/gems/apolo
-[travis]: http://travis-ci.org/steelhouselabs/apolo
-[gemnasium]: https://gemnasium.com/steelhouselabs/apolo
-[codeclimate]: https://codeclimate.com/github/steelhouselabs/apolo
-[coveralls]: https://coveralls.io/r/steelhouselabs/apolo
+[travis]: http://travis-ci.org/SteelHouseLabs/apolo
+[gemnasium]: https://gemnasium.com/SteelHouseLabs/apolo
+[codeclimate]: https://codeclimate.com/github/SteelHouseLabs/apolo
+[coveralls]: https://coveralls.io/r/SteelHouseLabs/apolo
 
 ## Installation
 
