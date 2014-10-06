@@ -1,5 +1,5 @@
 require 'apolo/version'
-require 'apolo/monitor'
+require 'apolo/metrics'
 require 'apolo/reader'
 require 'apolo/reader_config'
 require 'apolo/notifiers'

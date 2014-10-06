@@ -22,7 +22,7 @@ original_verbose, $VERBOSE = $VERBOSE, nil
 $VERBOSE = original_verbose
 
 
-class CheckTCPSockets < Apolo::Monitor
+class CheckTCPSockets < Apolo::Metrics
   name 'TCP_Sockets'
 
   # Notifiers
@@ -45,5 +45,5 @@ class CheckTCPSockets < Apolo::Monitor
 end
 
 # create monitor and run it
-monitor = CheckTCPSockets.new
-monitor.run
+metrics = CheckTCPSockets.new
+metrics.run

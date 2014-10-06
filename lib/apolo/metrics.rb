@@ -1,5 +1,5 @@
 module Apolo
-  class Monitor
+  class Metrics
     class << self
       def reader_templates
         @reader_templates || []
@@ -86,7 +86,7 @@ module Apolo
       end
     end
 
-    # @see Monitor#using
+    # @see Metrics#using
     def add_reader(reader_description, &block)
       config = ReaderConfig.new
       config.instance_exec(&block) if block
@@ -99,7 +99,7 @@ module Apolo
       end
     end
 
-    # @see Monitor#notify
+    # @see Metrics#notify
     def add_notifier(notifier_name, options)
       @notifiers[notifier_name] = options
     end

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rake', '>= 0.9'
+gem 'rake', '~> 10.0'
 gem 'rdoc', '>= 3.9'
 
 group :development do

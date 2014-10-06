@@ -22,7 +22,7 @@ original_verbose, $VERBOSE = $VERBOSE, nil
 $VERBOSE = original_verbose
 
 
-class CheckCups < Apolo::Monitor
+class CheckCups < Apolo::Metrics
   name 'CUPS'
 
   # Notifiers
@@ -47,5 +47,5 @@ class CheckCups < Apolo::Monitor
 end
 
 # create monitor and run it
-monitor = CheckCups.new
-monitor.run
+metrics = CheckCups.new
+metrics.run

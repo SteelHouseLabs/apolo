@@ -20,7 +20,7 @@ original_verbose, $VERBOSE = $VERBOSE, nil
 # Activate warning messages again.
 $VERBOSE = original_verbose
 
-class CheckCpuSocket < Apolo::Monitor
+class CheckCpuSocket < Apolo::Metrics
   name 'CPU_Socket'
 
   # Nagios notifier
@@ -46,5 +46,5 @@ class CheckCpuSocket < Apolo::Monitor
 end
 
 # create monitor and run it
-monitor = CheckCpuSocket.new
-monitor.run
+metrics = CheckCpuSocket.new
+metrics.run
