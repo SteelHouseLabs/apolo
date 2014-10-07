@@ -2,6 +2,9 @@ require 'cupsffi'
 
 module Apolo
   module Domains
+    # Get data from Cups server
+    #
+    # @author Efren Fuentes <efrenfuentes@gmail.com>
     class Cups
       attr_accessor :jobs_count, :minutes, :job
       def initialize(printer_name)

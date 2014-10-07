@@ -2,6 +2,9 @@ require 'socket'
 
 module Apolo
   module Domains
+    # Get active TCP sockets
+    #
+    # @author Efren Fuentes <efrenfuentes@gmail.com>
     class TCPSockets
       class << self
         def connections(family)

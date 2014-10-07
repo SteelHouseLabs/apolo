@@ -1,8 +1,8 @@
 module Apolo
   module Domains
-    # CpuSocket
-    #
     # Get information about percentage of usage for each cpu on all sockets
+    #
+    # @author Efren Fuentes <efrenfuentes@gmail.com>
     class CpuSocket
       def initialize
         @init_stats = statistics_of_process

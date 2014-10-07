@@ -1,35 +1,43 @@
 module Apolo
+  # Central piece for get data from sources using readers or domains classes 
+  # and send to notifiers for analysis
+  #
+  # @author Efren Fuentes <efrenfuentes@gmail.com>
   class Metrics
     class << self
+      # Store readers for use on Metrics instance
       def reader_templates
         @reader_templates || []
       end
 
+      # Store notifiers for use on Metrics instance
       def notifier_templates
         @notifier_templates || []
       end
 
+      # Store name for use on Metrics instance
       def name_template
         @name_template || self.to_s
       end
 
+      # Store run for use on Metrics instance
       def running_template
         @running_template
       end
 
-      # Set the name of the app. Can be used by notifiers in order to have
+      # Set the name of the metrics. Can be used by notifiers in order to have
       # a better description of the service in question.
       #
-      # @param [String, #read] name The name to be given to a Apolo-based
+      # @param [String, #read] name The name to be given to a Metrics-based
       #   class.
-      def name(val = nil)
-        @name_template = val if val
+      def name(name = nil)
+        @name_template = name if name
         @name_template
       end
 
       # Register a reader in the list of readers.
       #
-      # @param [Hash{Scout => String}, #read] reader_description A hash
+      # @param [Hash{Reader => String}, #read] reader_description A hash
       #   containing Reader class as key and its description as a value.
       #
       # @yield Block to be evaluated to configure the current {Reader}.
@@ -43,7 +51,7 @@ module Apolo
 
       # Register a notifier class in the list of notifications.
       #
-      # @param [Class, #read] class A class that will be used to issue
+      # @param [Class, #read] notifier class that will be used to issue
       #   a notification. The class must accept a configuration hash in the
       #   constructor and also implement a #notify method that will receive an
       #   outpost instance. See {Apolo::Notifiers::Console} for an example.
@@ -55,6 +63,7 @@ module Apolo
         @notifier_templates << {:notifier => notifier, :options => options}
       end
 
+      # All the logic for execute Metrics checks is isolated on this methods
       def run(&block)
         @running_template = block
       end
@@ -66,21 +75,22 @@ module Apolo
     # Returns all the registered notifiers.
     attr_reader :notifiers
 
-    # Reader/setter for the name of this monitor
+    # Reader/setter for the name of this metrics
     attr_accessor :name
 
-    # New instance of a Application-based class.
+    # New instance of a Metrics-based class.
     def initialize
       @readers    = Hash.new { |h, k| h[k] = [] }
       @notifiers  = {}
       @name       = self.class.name_template
       @running    = self.class.running_template
 
-      # Register readers
+      # register readers
       self.class.reader_templates.each do |template|
         add_reader(template[:reader_description], &template[:block])
       end
 
+      # register notifiers
       self.class.notifier_templates.each do |template|
         add_notifier(template[:notifier], template[:options])
       end
@@ -104,10 +114,12 @@ module Apolo
       @notifiers[notifier_name] = options
     end
 
+    # @see Metrics#run
     def run
       instance_exec &@running
     end
 
+    # Send data to all notifiers
     def notify(data)
       message = data[:message]
       value = data[:value]
@@ -123,6 +135,7 @@ module Apolo
       end
     end
 
+    # Use Readers to get data from sources
     def get_data(reader_exec)
       @readers.each do |reader, configurations|
         if configurations.first[:description] == reader_exec
@@ -134,6 +147,7 @@ module Apolo
 
     private
 
+    # Run a Apolo#Reader
     def run_reader(reader, config)
       reader_instance = reader.new(config)
 
