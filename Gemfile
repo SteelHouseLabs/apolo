@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'rake', '~> 10.0'
-gem 'rdoc', '>= 3.9'
+gem 'sequel', '~> 4.14'
+gem 'sqlite3', '~> 1.3'
+gem 'ibm_db', '~> 2.5'
+gem 'yard', '~> 0.8'
 
 group :development do
   gem 'guard-rspec'
@@ -16,8 +18,6 @@ group :test do
   gem 'childlabor'
   gem 'coveralls', '>= 0.5.7'
   gem 'fakeweb', '>= 1.3'
-  gem 'sequel', '~> 4.14'
-  gem 'sqlite3', '~> 1.3'
   gem 'cupsffi', '~> 0.1'
   gem 'logger-better'
   gem 'tnt'
