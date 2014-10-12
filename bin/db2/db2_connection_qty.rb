@@ -34,7 +34,7 @@ class CheckDB2ConnectionQty < Apolo::Metrics
   # Nagios notifier
   notify Apolo::Notifiers::Nagios, file: 'nagios.cmd',\
                                    host: 'localhost',\
-                                   service: 'CPU_Socket',\
+                                   service: 'DB2',\
                                    warning: @@options[:warning].to_i,\
                                    critical: @@options[:critical].to_i
 

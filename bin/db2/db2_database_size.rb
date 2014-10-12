@@ -1,14 +1,18 @@
 #!/usr/bin/env ruby
-# This script checks if database is available for connect.
+# This script checks for database size, can use percentage if wanted.
 require 'apolo'
 require 'optparse'
 
-options = { warning: 1, critical: 2, instance: '/home/db2inst1' }
+options = { warning: 101, critical: 101, instance: '/home/db2inst1', refresh: -1, percentage: false }
 
 begin
   OptionParser.new do |opts|
+    opts.on('-c', '--critical MAX', 'Max connections for critical') { |v| options[:critical] = v }
+    opts.on('-w', '--warning MAX', 'Max cpu usage percentage for warning') { |v| options[:warning] = v }
     opts.on('-i', '--instance DIRECTORY', 'Directory for DB2 instance') { |v| options[:instance] = v }
     opts.on('-d', '--database DATABASE', 'Database name') { |v| options[:database] = v }
+    opts.on('-r', '--refresh REFRESH', 'Quantity of minutes before refresh cache in the database. Used to call GET_DBSIZE_INFO.') { |v| optiond[:refresh] = v }
+    opts.on('-p' '--percentage', 'Check for percentage of use') { options[:percentage] = true}
   end.parse!
 rescue Exception => msg
   puts msg
@@ -21,8 +25,8 @@ original_verbose, $VERBOSE = $VERBOSE, nil
 # Activate warning messages again.
 $VERBOSE = original_verbose
 
-class CheckDB2DatabaseAvailable < Apolo::Metrics
-  name 'DB2_Database_Available'
+class CheckDB2DatabaseSize < Apolo::Metrics
+  name 'DB2_Database_Size'
 
   # Nagios notifier
   notify Apolo::Notifiers::Nagios, file: 'nagios.cmd',\
@@ -34,15 +38,12 @@ class CheckDB2DatabaseAvailable < Apolo::Metrics
   run do
     db2 = Apolo::Domains::DB2.new instance: @@options[:instance], database: @@options[:database]
 
-    value = 3 # error
-    message = "#{db2.database} is not available for connect"
-
-    if db2.connectable?
-      value = 0 # ok
-      message = "#{db2.database} is available for connect"
-    elsif db2.quiesce_mode?
-      value = 1 # warning
-      message = "#{db2.database} is on quiesce mode"
+    if @@options[:percentage]
+      value = db2.database_size_percentage(@@options[:refresh])
+      message = "#{db2.database} percentage of size"
+    else
+      value = db2.database_size(@@options[:refresh])
+      message = "#{db2.database} size"
     end
 
     notify message: message, value: value
@@ -53,5 +54,5 @@ end
 puts @@options
 
 # create monitor and run it
-metrics = CheckDB2DatabaseAvailable.new
+metrics = CheckDB2DatabaseSize.new
 metrics.run

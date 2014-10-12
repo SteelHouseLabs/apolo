@@ -55,6 +55,40 @@ module Apolo
         result.to_i
       end
 
+      # Get database size
+      def database_size(refresh=-1)
+        result = `db2 connect to #{database} > /dev/null ; db2 "CALL GET_DBSIZE_INFO(?, ?, ?, #{refresh})" ; db2 connect reset > /dev/null`
+
+        lines = result.split("\n")
+
+        (lines.count == 13) ? lines[7].split[3].to_i : -1
+      end
+
+      # Get database capacity
+      def database_capacity(refresh=-1)
+        result = `db2 connect to #{database} > /dev/null ; db2 "CALL GET_DBSIZE_INFO(?, ?, ?, #{refresh})" ; db2 connect reset > /dev/null`
+
+        lines = result.split("\n")
+
+        (lines.count == 13) ? lines[10].split[3].to_i : -1
+      end
+
+      # Get database size percentage
+      def database_size_percentage(refresh=-1)
+        result = `db2 connect to #{database} > /dev/null ; db2 "CALL GET_DBSIZE_INFO(?, ?, ?, #{refresh})" ; db2 connect reset > /dev/null`
+
+        lines = result.split("\n")
+
+        percentage = -1
+        if lines.count == 13
+          size = lines[7].split[3].to_i
+          allocated = lines[10].split[3].to_i
+          percentage = size * 100 / allocated
+        end
+
+        percentage
+      end
+
       # Get number of connections
       def number_of_connections(filter=nil, inverse=false)
         applications = `db2 list applications for database #{@database}`.split("\n")
