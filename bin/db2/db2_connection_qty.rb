@@ -47,7 +47,7 @@ class CheckDB2ConnectionQty < Apolo::Metrics
     value = 0
 
     unless connections.nil?
-      message = "Total of connections = #{connections[:total]}"
+      message = "#{db2.database} Total of connections = #{connections[:total]}"
       value = connections[:total]
 
       if @@options[:status]

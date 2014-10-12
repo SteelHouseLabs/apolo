@@ -4,6 +4,8 @@ module Apolo
     #
     # @author Efren Fuentes <efrenfuentes@gmail.com>
     class DB2
+      attr_reader :database
+
       def initialize(options = {})
         @instance = options[:instance]
         @database = options[:database].upcase
@@ -17,13 +19,40 @@ module Apolo
         end
       end
 
-      # Get list of databases on DB2
+      # Get list of databases on DB2 directory
       def databases
         `db2 list db directory | awk '/Database alias/ {print $4}'`.split
       end
 
+      # Database exist?
       def exist?
         databases.include?(@database)
+      end
+
+      # Get list of active databases
+      def active_databases
+        `db2 list active databases  | awk '/Database name/ {print $4}'`.split
+      end
+
+      # Is database active?
+      def active?
+        active_databases.include?(@database)
+      end
+
+      # Is database connectable?
+      def connectable?
+        sql_code_for_connect == 0
+      end
+
+      # Is quiesce mode
+      def quiesce_mode?
+        sql_code_for_connect == -20157
+      end
+
+      # Get sql code for connect to database
+      def sql_code_for_connect
+        result = `db2 -a connect to #{@database} | awk '/sqlcode/ {print $7}'`
+        result.to_i
       end
 
       # Get number of connections
