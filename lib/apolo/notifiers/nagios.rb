@@ -1,5 +1,8 @@
 require 'date'
 
+# @author Efren Fuentes <efrenfuentes@gmail.com>
+# @author Thomas Vincent <thomasvincent@steelhouselabs.com>
+    
 module Apolo
   module Notifiers
     NAGIOS_OK = 0

@@ -3,6 +3,7 @@ module Apolo
     # Get data from DB2 instance
     #
     # @author Efren Fuentes <efrenfuentes@gmail.com>
+    # @author Thomas Vincent <thomasvincent@steelhouselabs.com>
     class DB2
       attr_reader :database
 

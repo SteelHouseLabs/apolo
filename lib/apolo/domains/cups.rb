@@ -5,6 +5,7 @@ module Apolo
     # Get data from Cups server
     #
     # @author Efren Fuentes <efrenfuentes@gmail.com>
+    # @author Thomas Vincent <thomasvincent@steelhouselabs.com>
     class Cups
       attr_accessor :jobs_count, :minutes, :job
       def initialize(printer_name)

@@ -2,6 +2,9 @@ require 'sequel'
 require 'sqlite3'
 require 'date'
 
+# @author Efren Fuentes <efrenfuentes@gmail.com>
+# @author Thomas Vincent <thomasvincent@steelhouselabs.com>
+    
 module Apolo
   module Notifiers
     class Sqlite

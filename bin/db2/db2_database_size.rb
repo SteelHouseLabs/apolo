@@ -3,6 +3,9 @@
 require 'apolo'
 require 'optparse'
 
+# @author Efren Fuentes <efrenfuentes@gmail.com>
+# @author Thomas Vincent <thomasvincent@steelhouselabs.com>
+
 options = { warning: 101, critical: 101, instance: '/home/db2inst1', refresh: -1, percentage: false }
 
 begin
