@@ -1,10 +1,30 @@
 #!/usr/bin/env ruby
-# This script checks if database is available for connect.
-require 'apolo'
-require 'optparse'
-
+#
+# Script Name:: db2_database_available.rb
 # @author Efren Fuentes <efrenfuentes@gmail.com>
 # @author Thomas Vincent <thomasvincent@steelhouselabs.com>
+#
+# Copyright 2014, Steel House Labs.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# This script checks the quantity of connections on the database. The quantity
+# can be filtered by a given criterion, and inverted if wanted.
+#
+# This script checks if database is available for connect.
+
+require 'apolo'
+require 'optparse'
 
 options = { warning: 1, critical: 2, instance: '/home/db2inst1' }
 
